@@ -72,6 +72,25 @@ const Shop = () => {
 
     }
 
+    function remove(id) {
+      console.log(id);
+      let copy = [...cart];
+      let removed;
+      for (let x = 0; x< cart.length; x++)
+      {
+        if (copy[x].item.id == id)
+        {
+          console.log("found it");
+          removed = copy.splice(x,1);
+          console.log(removed);
+        }
+
+      }
+      updateCart(copy);
+      let tot = parseFloat(total).toFixed(2) - parseFloat(removed[0].item.price*removed[0].quantity).toFixed(2);
+      setTotal(tot);
+    }
+
    
 
    
@@ -88,6 +107,7 @@ const Shop = () => {
                   return (
                     <li key = {item.item.id + "basket"}>
                     Product: {item.item.title} Quantity: {item.quantity} Unit Cost: {item.item.price}  Total Cost: ${item.price}
+                    <button onClick = {()=>remove(item.item.id)}>Remove from basket</button>
                     </li>
                   )
                   
