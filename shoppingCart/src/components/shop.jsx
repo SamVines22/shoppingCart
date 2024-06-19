@@ -5,7 +5,6 @@ const Shop = () => {
     const [cart, updateCart] = useState([]);
     const location = useLocation();
     const {products} = location.state;
-   // const [prod, setProd] = useState(products);
     const [total, setTotal] = useState(0);
     const [quantity, setQuantity] = useState(null);
     
@@ -36,8 +35,16 @@ const Shop = () => {
           console.log(price);
           copy[x].price = price;
           updateCart(copy);
-          tot = (parseFloat(price)).toFixed(2);
-          setTotal(tot);
+          let tot = 0.00;
+          console.log(cart);
+          for (let y = 0; y < cart.length; y++)
+          {
+            
+            tot = tot + parseFloat(cart[y].price);
+            console.log(tot);
+          }
+          const tot1 = tot.toFixed(2);
+          setTotal(tot1);
           return;
         }
       }
@@ -73,22 +80,20 @@ const Shop = () => {
     }
 
     function remove(id) {
-      console.log(id);
       let copy = [...cart];
       let removed;
       for (let x = 0; x< cart.length; x++)
       {
         if (copy[x].item.id == id)
         {
-          console.log("found it");
-          removed = copy.splice(x,1);
-          console.log(removed);
+          removed = copy.splice(x,1); 
         }
 
       }
       updateCart(copy);
       let tot = parseFloat(total).toFixed(2) - parseFloat(removed[0].item.price*removed[0].quantity).toFixed(2);
-      setTotal(tot);
+      const tot1 = tot.toFixed(2)
+      setTotal(tot1);
     }
 
    
